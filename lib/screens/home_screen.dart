@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:weather_app/Models/weather_model.dart';
 import 'package:weather_app/services/weather_services.dart';
@@ -28,17 +30,18 @@ class _HomeScreenState extends State<HomeScreen> {
       final weather = await _weatherServices.fetchWeather(_controller.text);
 
       setState(() {
-        _weather = weather as Weather?; // fixed here
+        _weather = weather ; // fixed here
         _isLoading = false;
       });
-    } catch (e) {
+    } catch (e,st) {
       setState(() {
         _isLoading = false;
       });
+      log('Error Detection',error: e, stackTrace:st );
 
       // ignore: use_build_context_synchronously
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Error fetching weather data')),
+        SnackBar(content: Text(e.toString())),
       );
     }
   }
