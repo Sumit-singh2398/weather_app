@@ -29,6 +29,7 @@ class WeatherServices {
       log('Error Detection',error: e, stackTrace:st );
       throw Exception(e);
     }
+    return null;
   }
 }
 
